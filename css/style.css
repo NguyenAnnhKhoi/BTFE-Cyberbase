@@ -1,0 +1,87 @@
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Wix+Madefor+Display:wght@400;500;600;700;800&display=swap');
+
+/* ── Base ── */
+body {
+  font-family: 'Wix Madefor Display', sans-serif;
+}
+
+/* ── Header ── */
+#cb-header * {
+  font-family: 'Wix Madefor Display', sans-serif;
+}
+#cb-header a,
+#cb-header button {
+  transition: opacity .15s;
+}
+#cb-header a:hover,
+#cb-header button:hover {
+  opacity: .7;
+}
+
+/* ── Scrollbar ── */
+.no-scroll::-webkit-scrollbar {
+  display: none;
+}
+.no-scroll {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* ── FAQ ── */
+details summary::-webkit-details-marker {
+  display: none;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-icon {
+  transition: transform .2s;
+}
+
+/* ── Components ── */
+.btn-black {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #000;
+  color: #fff;
+  border-radius: 80px;
+  padding: 6px 20px 6px 6px;
+  font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
+}
+.icon-green {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #76BE29;
+  border-radius: 50%;
+  margin-right: 4px;
+  flex-shrink: 0;
+}
+
+/* ── Utility – extracted inline styles ── */
+.filter-invert-40 {
+  filter: invert(.4);
+}
+.partners-gradient-bg {
+  background:
+    linear-gradient(119deg, rgba(131, 51, 166, 0) 33%, rgba(131, 51, 166, .2) 87%),
+    linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1));
+}
+
+/* ── Responsive ── */
+@media (min-width: 1024px) {
+  .btn-black {
+    font-size: 16px;
+    padding: 6px 24px 6px 6px;
+  }
+  .icon-green {
+    width: 40px;
+    height: 40px;
+  }
+}
