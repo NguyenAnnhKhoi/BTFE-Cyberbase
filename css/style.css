@@ -14,9 +14,11 @@ body {
 #cb-header button {
   transition: opacity .15s;
 }
-#cb-header a:hover,
-#cb-header button:hover {
-  opacity: .7;
+@media (hover: hover) {
+  #cb-header a:hover,
+  #cb-header button:hover {
+    opacity: .7;
+  }
 }
 
 /* ── Scrollbar ── */
@@ -31,12 +33,6 @@ body {
 /* ── FAQ ── */
 details summary::-webkit-details-marker {
   display: none;
-}
-details[open] .faq-icon {
-  transform: rotate(45deg);
-}
-.faq-icon {
-  transition: transform .2s;
 }
 
 /* ── Components ── */
@@ -62,16 +58,123 @@ details[open] .faq-icon {
   border-radius: 50%;
   margin-right: 4px;
   flex-shrink: 0;
+  overflow: hidden;
+  transform: scale(0.175); /* ~6px dot */
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.icon-green img {
+  opacity: 0;
+  transition: opacity .15s ease;
+  width: 16px;
+  height: 16px;
+}
+@media (hover: hover) {
+  .btn-black:hover .icon-green {
+    transform: scale(1);
+  }
+  .btn-black:hover .icon-green img {
+    opacity: 1;
+    transition: opacity .15s .15s ease;
+  }
 }
 
-/* ── Utility – extracted inline styles ── */
+/* ── Utility ── */
 .filter-invert-40 {
   filter: invert(.4);
 }
-.partners-gradient-bg {
-  background:
-    linear-gradient(119deg, rgba(131, 51, 166, 0) 33%, rgba(131, 51, 166, .2) 87%),
-    linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1));
+
+/* ── Pill button (reusable) ── */
+.btn-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: 80px;
+  padding: 6px 24px 6px 6px;
+  font-weight: 500;
+  font-size: 15px;
+  white-space: nowrap;
+  color: #000;
+  transition: box-shadow .2s ease;
+}
+@media (hover: hover) {
+  .btn-pill:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+  }
+}
+/* The animated icon dot */
+.btn-pill-icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #76BE29;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: transform .35s cubic-bezier(.34,1.56,.64,1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/* Dot — visible at rest */
+.btn-pill-icon::before {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #76BE29;
+  transition: opacity .2s .1s ease, transform .35s cubic-bezier(.34,1.56,.64,1);
+  z-index: 2;
+}
+/* Green circle — hidden at rest */
+.btn-pill-icon {
+  transform: scale(0.165); /* 6.6px ≈ dot size out of 40px */
+}
+/* Arrow icon */
+.btn-pill-icon img {
+  width: 16px;
+  height: 16px;
+  filter: invert(1);
+  opacity: 0;
+  transition: opacity .15s ease;
+  position: relative;
+  z-index: 3;
+}
+@media (hover: hover) {
+  .btn-pill:hover .btn-pill-icon {
+    transform: scale(1);
+  }
+  .btn-pill:hover .btn-pill-icon img {
+    opacity: 1;
+    transition: opacity .15s .15s ease;
+  }
+  .btn-pill:hover .btn-pill-icon::before {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .btn-pill {
+    font-size: 16px;
+    padding: 6px 28px 6px 6px;
+  }
+  .btn-pill-icon {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ── Brand logo entrance animation ── */
+.brand-logo {
+  opacity: 0;
+  transform: translateY(18px) scale(0.9);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.brand-logo.in-view {
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 
 /* ── Responsive ── */
