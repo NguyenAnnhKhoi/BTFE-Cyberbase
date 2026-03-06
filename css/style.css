@@ -5,7 +5,10 @@
 body {
   font-family: 'Wix Madefor Display', sans-serif;
 }
-
+.container{
+  max-width: 1200px;
+  margin: 0 auto;
+}
 /* ── Header ── */
 #cb-header * {
   font-family: 'Wix Madefor Display', sans-serif;
@@ -33,6 +36,12 @@ body {
 /* ── FAQ ── */
 details summary::-webkit-details-marker {
   display: none;
+}
+details[open] .faq-icon {
+  transform: rotate(45deg);
+}
+.faq-icon {
+  transition: transform .2s;
 }
 
 /* ── Components ── */
@@ -78,9 +87,14 @@ details summary::-webkit-details-marker {
   }
 }
 
-/* ── Utility ── */
+/* ── Utility – extracted inline styles ── */
 .filter-invert-40 {
   filter: invert(.4);
+}
+.partners-gradient-bg {
+  background:
+    linear-gradient(119deg, rgba(131, 51, 166, 0) 33%, rgba(131, 51, 166, .2) 87%),
+    linear-gradient(90deg, rgba(255, 255, 255, .1), rgba(255, 255, 255, .1));
 }
 
 /* ── Pill button (reusable) ── */
