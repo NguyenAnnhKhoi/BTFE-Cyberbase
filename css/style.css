@@ -190,6 +190,13 @@ details[open] .faq-icon {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
+.brand-logo img {
+  filter: grayscale(100%);
+  transition: filter .3s ease;
+}
+.brand-logo:hover img {
+  filter: grayscale(0%);
+}
 
 /* ── Responsive ── */
 @media (min-width: 1024px) {
