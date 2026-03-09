@@ -333,26 +333,14 @@ function renderPartnerSlider(){
   const n=testimonials.length;
 
   if(isMobile){
-    /* ── Mobile: simple single-card, full-width ── */
-    partnerSlider.style.height='auto';
-    partnerSlider.style.padding='0 20px';
-    partnerSlider.style.position='static';
-    partnerSlider.innerHTML=testimonials.map((t,i)=>`
-      <div class="partner-card-mob" style="display:${i===partnerActive?'flex':'none'};flex-direction:column;gap:24px;padding:24px;border-radius:24px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);background:${t.cardGrad};">
-        ${QUOTE_SVG}
-        <p style="font-weight:500;font-size:18px;color:#fff;line-height:1.5;flex:1;">${t.quote}</p>
-        <div style="height:180px;border-radius:16px;overflow:hidden;position:relative;">
-          <img src="${t.img}" alt="" style="position:absolute;max-width:none;left:${t.imgLeft};top:0;width:${t.imgW};height:100%;" />
-        </div>
-        <div>
-          <p style="font-weight:600;font-size:20px;color:#fff;line-height:1.2;">${t.name}</p>
-          <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.2;">${t.position}</p>
-        </div>
-      </div>`).join('');
-  } else {
-    /* ── Desktop: 3-D peek carousel ── */
-    const CARD_W=1080,CARD_H=550,SIDE_OFF=1020;
-    partnerSlider.style.height='630px';
+    /* ── Mobile: vertical peek carousel matching Figma 8367:741 ── */
+    const CARD_W=270, CARD_H=506, GLASS_H=474;
+    /* Side cards peek ~27px from screen edge */
+    const PEEK=27;
+    const SIDE_TX=Math.round(vw/2 + CARD_W/2 - PEEK);
+    const QUOTE_MOB=`<img src="image/quote-green.svg" alt="" style="width:28px;height:24px;flex-shrink:0;display:block;" />`;
+
+    partnerSlider.style.height=(CARD_H+40)+'px';
     partnerSlider.style.padding='0';
     partnerSlider.style.position='relative';
 
@@ -360,16 +348,57 @@ function renderPartnerSlider(){
       let d=i-partnerActive;
       if(d> n/2) d-=n;
       if(d<-n/2) d+=n;
-      let tx,rot,sc,op,zi;
-      if(d===0){tx=0;rot=0;sc=1;op=1;zi=10;}
-      else if(d===-1||(n===2&&d===1)){tx=-SIDE_OFF;rot=-15;sc=0.85;op=0.7;zi=5;}
-      else if(d===1||(n===2&&d===-1)){tx=SIDE_OFF;rot=10;sc=0.85;op=0.7;zi=5;}
-      else{tx=d<0?-SIDE_OFF*1.8:SIDE_OFF*1.8;rot=d<0?-22:16;sc=0.7;op=0;zi=1;}
+      let tx,rot,op,zi,pe;
+      if(d===0){tx=0;rot=0;op=1;zi=10;pe='auto';}
+      else if(d===-1||(n===2&&d===1)){tx=-SIDE_TX;rot=-4;op=1;zi=5;pe='none';}
+      else if(d===1||(n===2&&d===-1)){tx=SIDE_TX;rot=4;op=1;zi=5;pe='none';}
+      else{tx=d<0?-(SIDE_TX+CARD_W):SIDE_TX+CARD_W;rot=d<0?-8:8;op=0;zi=1;pe='none';}
+
+      return `<div style="
+        position:absolute;width:${CARD_W}px;height:${CARD_H}px;
+        left:50%;top:50%;
+        transform:translate(calc(-50% + ${tx}px),-50%) rotate(${rot}deg);
+        opacity:${op};z-index:${zi};pointer-events:${pe};
+        transition:transform .5s cubic-bezier(.34,1.26,.64,1),opacity .5s ease;
+      ">
+        <!-- Glass card background — no overflow:hidden so image can bleed out -->
+        <div style="position:absolute;top:0;left:0;width:${CARD_W}px;height:${GLASS_H}px;border-radius:16px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);background:${t.cardGrad};"></div>
+        <!-- Text: quote + body + name -->
+        <div style="position:absolute;top:16px;left:16px;width:238px;display:flex;flex-direction:column;gap:16px;z-index:2;">
+          ${QUOTE_MOB}
+          <p style="font-weight:500;font-size:16px;color:#fff;line-height:1.5;">${t.quote}</p>
+          <div>
+            <p style="font-weight:600;font-size:16px;color:#fff;line-height:1.5;">${t.name}</p>
+            <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.4;">${t.position}</p>
+          </div>
+        </div>
+        <!-- Image panel: starts at 256px, bleeds 32px below glass card to 506px -->
+        <div style="position:absolute;left:16px;top:256px;width:238px;height:250px;border-radius:16px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);z-index:3;">
+          <img src="${t.img}" alt="" style="position:absolute;max-width:none;left:${t.imgLeft};top:${t.imgTop};width:${t.imgW};height:${t.imgH};" />
+        </div>
+      </div>`;
+    }).join('');
+  } else {
+    /* ── Desktop: 3-D peek carousel ── */
+    const CARD_W=1080,CARD_H=550,SIDE_OFF=1020;
+    partnerSlider.style.height='750px';
+    partnerSlider.style.padding='0';
+    partnerSlider.style.position='relative';
+
+    partnerSlider.innerHTML=testimonials.map((t,i)=>{
+      let d=i-partnerActive;
+      if(d> n/2) d-=n;
+      if(d<-n/2) d+=n;
+      let tx,ty,rot,sc,op,zi;
+      if(d===0){tx=0;ty=0;rot=0;sc=1;op=1;zi=10;}
+      else if(d===-1||(n===2&&d===1)){tx=-SIDE_OFF;ty=80;rot=-15;sc=0.85;op=0.7;zi=5;}
+      else if(d===1||(n===2&&d===-1)){tx=SIDE_OFF;ty=80;rot=10;sc=0.85;op=0.7;zi=5;}
+      else{tx=d<0?-SIDE_OFF*1.8:SIDE_OFF*1.8;ty=120;rot=d<0?-22:16;sc=0.7;op=0;zi=1;}
 
       return `<div style="
         position:absolute;width:${CARD_W}px;height:${CARD_H+80}px;
         left:50%;top:50%;
-        transform:translate(calc(-50% + ${tx}px),-50%) rotate(${rot}deg) scale(${sc});
+        transform:translate(calc(-50% + ${tx}px),calc(-50% + ${ty}px)) rotate(${rot}deg) scale(${sc});
         opacity:${op};z-index:${zi};
         transition:transform .5s cubic-bezier(.34,1.26,.64,1),opacity .5s ease;pointer-events:${d===0?'auto':'none'};
       ">
