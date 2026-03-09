@@ -6,8 +6,6 @@
   <title>CyberBase – Hosting solution just for you</title>
   <link rel="stylesheet" href="css/style.css"/>
   <style>
-    /* ─ Brand logos greyscale ─ */
-    .brand-logo img { filter: grayscale(100%); }
     /* ─ FAQ accordion button ─ */
     details .faq-btn { background: transparent; border-color: rgba(0,0,0,0.15); }
     details[open] .faq-btn { background: #000; border-color: #000; }
@@ -208,17 +206,20 @@
 </section>
 
 <!-- ═══ PARTNERS (DARK) ═══ -->
-<section class="relative bg-black py-10 lg:py-20 overflow-hidden">
+<section id="partner-section" class="relative bg-black py-10 lg:py-20 overflow-hidden" style="cursor:none;">
+  <!-- Background image -->
+  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+    <img src="image/partner-section-bg.png" alt="" class="absolute max-w-none w-full" style="top:-46.81%;height:157.52%;left:0;" />
+  </div>
   <div class="relative z-10 text-white text-center max-w-[860px] mx-auto px-5 mb-10 lg:mb-16 flex flex-col gap-4 lg:gap-6">
     <h2 class="font-semibold text-[28px] lg:text-[48px] leading-[1.2]">Partners share about us</h2>
     <p class="text-[14px] lg:text-[20px] leading-relaxed opacity-80">Each package is designed with outstanding performance, ease of management, and the support of experts right in Vietnam that you can chat with anytime.</p>
   </div>
-  <div id="partner-slider" class="relative z-10 select-none" style="cursor:grab;"></div>
-  <div class="relative z-10 flex gap-2 items-center justify-center mt-6 lg:mt-10">
-    <div class="size-3 rounded-full bg-white/30"></div>
-    <div class="bg-[#4a4a4a] rounded-[35px] size-[60px] lg:size-[70px] flex items-center justify-center"><p class="font-medium text-[14px] lg:text-[16px] text-white">Drag</p></div>
-    <div class="size-3 rounded-full bg-white/30"></div>
+  <!-- Custom drag cursor -->
+  <div id="drag-cursor" style="position:fixed;top:0;left:0;width:70px;height:70px;border-radius:50%;background:#3a3a3a;display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:9999;opacity:0;transform:translate(-50%,-50%);transition:opacity .2s ease,transform .2s ease;will-change:transform;">
+    <span style="font-weight:500;font-size:14px;color:#fff;user-select:none;">Drag</span>
   </div>
+  <div id="partner-slider" class="relative z-10 select-none"></div>
 </section>
 
 <!-- ═══ FAQ ═══ -->
@@ -317,11 +318,11 @@ makeDraggable(document.getElementById('news-cards'));
 
 /* ── Partners / Testimonials Carousel ── */
 const testimonials=[
-  {quote:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',name:'Name',position:'Brand name position',cardGrad:'linear-gradient(119.4deg,rgba(131,51,166,0) 33%,rgba(131,51,166,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',imgBg:'linear-gradient(135deg,#5a1d8f 0%,#8b3cc0 100%)'},
-  {quote:'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.',name:'Another Name',position:'Another Brand',cardGrad:'linear-gradient(119.4deg,rgba(5,182,190,0) 33%,rgba(5,182,190,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',imgBg:'linear-gradient(135deg,#066b72 0%,#09b5be 100%)'},
-  {quote:'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.',name:'Third Person',position:'Third Brand',cardGrad:'linear-gradient(119.4deg,rgba(131,51,166,0) 33%,rgba(131,51,166,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',imgBg:'linear-gradient(135deg,#1a1a6e 0%,#3535cc 100%)'},
+  {quote:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',name:'Name',position:'Brand name position',cardGrad:'linear-gradient(119.4deg,rgba(131,51,166,0) 33%,rgba(131,51,166,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',img:'image/partner-card-purple.png',imgLeft:'-60.17%',imgTop:'-13.95%',imgW:'220.35%',imgH:'126.62%'},
+  {quote:'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.',name:'Another Name',position:'Another Brand',cardGrad:'linear-gradient(119.4deg,rgba(5,182,190,0) 33%,rgba(5,182,190,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',img:'image/partner-card-teal.png',imgLeft:'-56.63%',imgTop:'0.01%',imgW:'174.03%',imgH:'100%'},
+  {quote:'Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat.',name:'Third Person',position:'Third Brand',cardGrad:'linear-gradient(119.4deg,rgba(131,51,166,0) 33%,rgba(131,51,166,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',img:'image/partner-card-purple.png',imgLeft:'-60.17%',imgTop:'-13.95%',imgW:'220.35%',imgH:'126.62%'},
 ];
-const QUOTE_SVG=`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 32" style="width:36px;height:auto;fill:#76BE29;flex-shrink:0;display:block"><path d="M0 32V19.2C0 8.533 5.333 2.667 16 0l2.667 4C13.422 5.333 10.8 8.267 10.8 12.8H16V32H0zm21.333 0V19.2C21.333 8.533 26.667 2.667 37.333 0L40 4C34.756 5.333 32.133 8.267 32.133 12.8H37.333V32H21.333z"/></svg>`;
+const QUOTE_SVG=`<img src="image/quote-green.svg" alt="" style="width:36.48px;height:31.1px;flex-shrink:0;display:block;" />`;  
 
 const partnerSlider=document.getElementById('partner-slider');
 let partnerActive=0;
@@ -340,7 +341,9 @@ function renderPartnerSlider(){
       <div class="partner-card-mob" style="display:${i===partnerActive?'flex':'none'};flex-direction:column;gap:24px;padding:24px;border-radius:24px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);background:${t.cardGrad};">
         ${QUOTE_SVG}
         <p style="font-weight:500;font-size:18px;color:#fff;line-height:1.5;flex:1;">${t.quote}</p>
-        <div style="height:180px;border-radius:16px;overflow:hidden;background:${t.imgBg};"></div>
+        <div style="height:180px;border-radius:16px;overflow:hidden;position:relative;">
+          <img src="${t.img}" alt="" style="position:absolute;max-width:none;left:${t.imgLeft};top:0;width:${t.imgW};height:100%;" />
+        </div>
         <div>
           <p style="font-weight:600;font-size:20px;color:#fff;line-height:1.2;">${t.name}</p>
           <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.2;">${t.position}</p>
@@ -370,20 +373,20 @@ function renderPartnerSlider(){
         opacity:${op};z-index:${zi};
         transition:transform .5s cubic-bezier(.34,1.26,.64,1),opacity .5s ease;pointer-events:${d===0?'auto':'none'};
       ">
-        <div style="position:relative;width:${CARD_W}px;height:${CARD_H}px;border-radius:32px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);overflow:hidden;background:${t.cardGrad};">
-          <!-- Left column -->
-          <div style="position:absolute;top:30px;left:30px;width:420px;height:490px;display:flex;flex-direction:column;gap:40px;padding:0;">
-            ${QUOTE_SVG}
-            <p style="font-weight:500;font-size:24px;color:#fff;line-height:1.5;flex:1;min-height:0;">${t.quote}</p>
-            <div style="display:flex;flex-direction:column;gap:6px;">
-              <p style="font-weight:600;font-size:24px;color:#fff;line-height:1.2;">${t.name}</p>
-              <p style="font-size:16px;color:rgba(255,255,255,0.8);line-height:1.2;">${t.position}</p>
-            </div>
+        <!-- Glass card background (no overflow:hidden so image can bleed) -->
+        <div style="position:absolute;top:0;left:0;width:${CARD_W}px;height:${CARD_H}px;border-radius:32px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);background:${t.cardGrad};"></div>
+        <!-- Left column text (over glass) -->
+        <div style="position:absolute;top:30px;left:30px;width:420px;height:490px;display:flex;flex-direction:column;gap:40px;padding:0;z-index:2;">
+          ${QUOTE_SVG}
+          <p style="font-weight:500;font-size:24px;color:#fff;line-height:1.5;flex:1;min-height:0;">${t.quote}</p>
+          <div style="display:flex;flex-direction:column;gap:6px;">
+            <p style="font-weight:600;font-size:24px;color:#fff;line-height:1.2;">${t.name}</p>
+            <p style="font-size:16px;color:rgba(255,255,255,0.8);line-height:1.2;">${t.position}</p>
           </div>
-          <!-- Right column image -->
-          <div style="position:absolute;left:480px;top:30px;width:570px;height:600px;border-radius:24px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
-            <div style="width:100%;height:100%;background:${t.imgBg};"></div>
-          </div>
+        </div>
+        <!-- Right image panel: bleeds 80px below the glass card -->
+        <div style="position:absolute;left:480px;top:30px;width:570px;height:600px;border-radius:24px;overflow:hidden;box-shadow:0 4px 20px rgba(0,0,0,0.1);z-index:3;">
+          <img src="${t.img}" alt="" style="position:absolute;max-width:none;left:${t.imgLeft};top:${t.imgTop};width:${t.imgW};height:${t.imgH};" />
         </div>
       </div>`;
     }).join('');
@@ -414,7 +417,34 @@ function renderPartnerSlider(){
 
 renderPartnerSlider();
 
-/* ── Rate the design ── */
+/* ── Custom drag cursor for partner section ── */
+(function(){
+  const section = document.getElementById('partner-section');
+  const cursor  = document.getElementById('drag-cursor');
+  if(!section || !cursor) return;
+  let raf;
+  section.addEventListener('mousemove', e => {
+    cancelAnimationFrame(raf);
+    raf = requestAnimationFrame(() => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top  = e.clientY + 'px';
+    });
+  });
+  section.addEventListener('mouseenter', () => {
+    cursor.style.opacity = '1';
+    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+  section.addEventListener('mouseleave', () => {
+    cursor.style.opacity = '0';
+    cursor.style.transform = 'translate(-50%,-50%) scale(0.6)';
+  });
+  section.addEventListener('mousedown', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(0.85)';
+  });
+  section.addEventListener('mouseup', () => {
+    cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+  });
+})();
 (function(){
   let selected=null;
   const wrap=document.getElementById('rating-btns');
@@ -452,7 +482,7 @@ document.getElementById('product-cards').innerHTML=products.map(p=>`
 
 /* ── Tabs ── */
 const tabs=[
-  {id:'bm',label:'Business Management',html:`<div class="flex flex-col lg:flex-row gap-6 lg:gap-16 items-start"><div class="flex flex-col gap-4 lg:gap-6 flex-1"><div class="bg-[#76BE29] rounded-xl size-10 lg:size-16 flex items-center justify-center"><img src="icon/grid.svg" class="w-5 lg:w-7 h-5 lg:h-7 invert" alt=""/></div><h3 class="font-semibold text-[18px] lg:text-[32px] leading-[1.2]">Business Management</h3><p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 max-w-[440px]">Manage your entire business from one platform — invoicing, CRM, project management and more, built for Vietnamese SMEs.</p><div class="flex flex-col sm:flex-row flex-wrap gap-3"><a href="#" class="btn-black w-full sm:w-auto justify-center"><span class="icon-green"><img src="icon/arrow-right.svg" class="w-4 h-4 invert" alt=""/></span>Try for free</a><a href="#" class="btn-pill w-full sm:w-auto justify-center"><span class="btn-pill-icon"><img src="icon/arrow-right.svg" alt=""/></span>Learn more</a></div></div><div class="hidden lg:flex shrink-0 w-[360px] h-60 bg-white/40 rounded-3xl items-center justify-center text-black/30 text-sm font-medium">Preview</div></div>`},
+  {id:'bm',label:'Business Management',html:`<div class="flex flex-col lg:flex-row gap-6 lg:gap-16 items-start"><div class="flex flex-col gap-4 lg:gap-6 flex-1"><div class="bg-[#76BE29] rounded-xl size-10 lg:size-16 flex items-center justify-center"><img src="icon/grid.svg" class="w-5 lg:w-7 h-5 lg:h-7 invert" alt=""/></div><h3 class="font-semibold text-[18px] lg:text-[32px] leading-[1.2]">Business Management</h3><p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 max-w-[440px]"></div>`},
   {id:'wp',label:'WordPress',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">WordPress Hosting</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Optimized WordPress hosting with 1-click install, auto-updates and 24/7 expert support in Vietnam.</p>'},
   {id:'fm',label:'Financial management',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">Financial Management</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Integrated financial tools to track revenue, expenses and invoices — all synced with your hosting dashboard.</p>'},
   {id:'tl',label:'Tools',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">Developer Tools</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Access SSH, Git, staging environments and advanced CLI tools.</p>'},
