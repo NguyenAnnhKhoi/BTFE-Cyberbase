@@ -192,10 +192,6 @@ details[open] .faq-icon {
 }
 .brand-logo img {
   filter: grayscale(100%);
-  transition: filter .3s ease;
-}
-.brand-logo:hover img {
-  filter: grayscale(0%);
 }
 
 /* ── Responsive ── */

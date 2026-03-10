@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>CyberBase – Hosting solution just for you</title>
+  <title>CyberBase </title>
   <link rel="stylesheet" href="css/style.css"/>
   <style>
-    /* ─ FAQ accordion button ─ */
+    /* ? FAQ accordion button ? */
     details .faq-btn { background: transparent; border-color: rgba(0,0,0,0.15); }
     details[open] .faq-btn { background: #000; border-color: #000; }
     details .faq-btn .faq-plus  { display: block; }
     details .faq-btn .faq-minus { display: none; }
     details[open] .faq-btn .faq-plus  { display: none; }
     details[open] .faq-btn .faq-minus { display: block; }
-    /* ─ Rating buttons ─ */
+    /* ? Marquee ? */
+    @keyframes marquee { from { transform: translateX(0) } to { transform: translateX(-50%) } }
+    .brand-marquee-track { animation: marquee 20s linear infinite; }
+    /* ? Rating buttons ? */
     #rating-btns button { width: 44px; height: 44px; }
     @media (min-width: 1024px) {
       #rating-btns { gap: 12px; }
@@ -36,8 +39,8 @@
 <div id="header-root"></div>
 <main class="container">
 
-<!-- ═══ HERO ═══ -->
-<section class="pt-[100px] lg:pt-[160px] px-5 lg:px-16 pb-10 lg:pb-20">
+<!-- ??? HERO ??? -->
+<section class="pt-[100px] lg:pt-[70px] px-5 lg:px-16 pb-10 lg:pb-20">
   <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
     <!-- Text -->
     <div class="w-full lg:flex-1 flex flex-col gap-6 lg:gap-8">
@@ -60,48 +63,69 @@
   <!-- Brands -->
   <div class="flex flex-col gap-3 items-center mt-10 lg:mt-20">
     <p class="font-medium text-[16px] text-black text-center">Trusted by 140,000+ businesses and brands around the world</p>
-    <div class="flex gap-5 lg:gap-10 items-center overflow-x-auto no-scroll w-full px-5 lg:px-0 lg:justify-center">
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[143px] relative shrink-0 flex items-center justify-center">
+    <!-- Desktop: static centered -->
+    <div class="hidden lg:flex gap-10 items-center justify-center">
+      <div class="brand-logo h-[68px] w-[143px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-01.png" alt="Heineken" class="max-h-full max-w-full object-contain"/>
       </div>
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[142px] relative shrink-0 flex items-center justify-center">
+      <div class="brand-logo h-[68px] w-[142px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-02.png" alt="FPT Education" class="max-h-full max-w-full object-contain"/>
       </div>
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[142px] relative shrink-0 flex items-center justify-center">
+      <div class="brand-logo h-[68px] w-[142px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-03.png" alt="VIB" class="max-h-full max-w-full object-contain"/>
       </div>
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[142px] relative shrink-0 flex items-center justify-center">
+      <div class="brand-logo h-[68px] w-[142px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-04.png" alt="VPBank" class="max-h-full max-w-full object-contain"/>
       </div>
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[142px] relative shrink-0 flex items-center justify-center">
+      <div class="brand-logo h-[68px] w-[142px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-05.png" alt="FE Credit" class="max-h-full max-w-full object-contain"/>
       </div>
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[143px] relative shrink-0 flex items-center justify-center">
+      <div class="brand-logo h-[68px] w-[143px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-06.png" alt="Tiki" class="max-h-full max-w-full object-contain"/>
       </div>
-      <div class="brand-logo h-[40px] lg:h-[68px] w-[84px] lg:w-[143px] relative shrink-0 flex items-center justify-center">
+      <div class="brand-logo h-[68px] w-[143px] relative shrink-0 flex items-center justify-center">
         <img src="image/brand-07.png" alt="Ubank" class="max-h-full max-w-full object-contain"/>
+      </div>
+    </div>
+    <!-- Mobile: auto-scroll marquee -->
+    <div class="lg:hidden w-full overflow-hidden">
+      <div class="brand-marquee-track flex gap-5 items-center w-max">
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-01.png" alt="Heineken" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-02.png" alt="FPT Education" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-03.png" alt="VIB" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-04.png" alt="VPBank" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-05.png" alt="FE Credit" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-06.png" alt="Tiki" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-07.png" alt="Ubank" class="max-h-full max-w-full object-contain"/></div>
+        <!-- Duplicate for seamless loop -->
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-01.png" alt="Heineken" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-02.png" alt="FPT Education" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-03.png" alt="VIB" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-04.png" alt="VPBank" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-05.png" alt="FE Credit" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-06.png" alt="Tiki" class="max-h-full max-w-full object-contain"/></div>
+        <div class="brand-logo h-[40px] w-[84px] shrink-0 flex items-center justify-center"><img src="image/brand-07.png" alt="Ubank" class="max-h-full max-w-full object-contain"/></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ PRODUCTS & SOLUTIONS ═══ -->
+<!-- ??? PRODUCTS & SOLUTIONS ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
-  <div class="flex flex-col gap-3 lg:gap-4 mb-8 lg:mb-12 items-center text-center">
-    <h2 class="font-semibold text-[24px] lg:text-[52px] leading-[1.2]">Products &amp; Solutions</h2>
-    <p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 max-w-[580px]">Each package is designed with outstanding performance, ease of management, and the support of experts right in Vietnam that you can chat with anytime.</p>
+  <div class="flex flex-col gap-4 lg:gap-6 mb-8 lg:mb-12 items-center text-center">
+    <h2 class="font-medium text-[24px] lg:text-[52px] leading-[1.2]">Products &amp; Solutions</h2>
+    <p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 max-w-[860px]">Each package is designed with outstanding performance, ease of management, and the support of experts right in Vietnam that you can chat with anytime.</p>
   </div>
-  <div id="product-cards" class="flex gap-4 lg:gap-6 overflow-x-auto pb-4 no-scroll cursor-grab select-none"></div>
+  <div id="product-cards" class="flex gap-4 lg:gap-8 overflow-x-auto py-4 no-scroll cursor-grab select-none"></div>
   <div class="flex justify-center mt-8 lg:mt-10">
     <a href="#" class="btn-pill"><span class="btn-pill-icon"><img src="icon/arrow-right.svg" alt=""/></span>View all</a>
   </div>
 </section>
 
-<!-- ═══ CONVERT / TABS ═══ -->
+<!-- ??? CONVERT / TABS ??? -->
 <section class="relative px-5 lg:px-16 pt-10 lg:pt-20 pb-10 lg:pb-20">
 
-  <!-- Header: title · tabs · description — all centred, clean bg -->
+  <!-- Header: title � tabs � description � all centred, clean bg -->
   <div class="flex flex-col gap-5 lg:gap-6 items-center text-center w-full mb-8 lg:mb-10">
     <h2 class="font-semibold text-[24px] lg:text-[52px] leading-[1.2] max-w-full lg:max-w-[822px]">Convert numbers easily with 'stock' of solutions</h2>
     <!-- Desktop pill tabs (lg+) -->
@@ -111,11 +135,11 @@
     <p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 max-w-[580px] lg:max-w-[708px]">Each package is designed with outstanding performance, ease of management, and the support of experts right in Vietnam that you can chat with anytime.</p>
   </div>
 
-  <!-- Card wrapper — holds aspect ratio, z-10 above the bg -->
+  <!-- Card wrapper � holds aspect ratio, z-10 above the bg -->
   <div class="relative z-10 h-[420px] lg:h-auto lg:aspect-[1280/700] max-w-[1280px] mx-auto" id="tab-card-wrap">
 
-    <!-- Frosted glass outer → white inner card -->
-    <div class="absolute inset-0 flex flex-col rounded-[24px] lg:rounded-[32px] shadow-[0_20px_40px_rgba(0,0,0,.12)] backdrop-blur-[20px] bg-[rgba(231,226,223,.4)] border border-[rgba(192,172,163,.2)] overflow-hidden p-3 lg:p-5">
+    <!-- Frosted glass outer ? white inner card -->
+    <div class="absolute inset-0 flex flex-col rounded-[24px] lg:rounded-[32px] shadow-[0_20px_40px_rgba(0,0,0,.12)] backdrop-blur-[20px] bg-[rgba(231,226,223,.4)] border border-[rgba(192,172,163,.2)] p-3 lg:p-5">
       <div class="bg-white rounded-[16px] lg:rounded-[20px] border border-[rgba(192,172,163,.2)] flex-1 min-h-0 w-full">
         <div id="tab-pane" class="p-6 lg:p-10 h-full"></div>
       </div>
@@ -149,7 +173,7 @@
 })();
 </script>
 
-<!-- ═══ FEATURE CARD ═══ -->
+<!-- ??? FEATURE CARD ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
   <div class="bg-white rounded-2xl p-6 lg:p-8 flex flex-col lg:flex-row gap-5 lg:gap-6 items-start lg:items-end">
     <!-- Icon -->
@@ -169,7 +193,7 @@
   </div>
 </section>
 
-<!-- ═══ FEATURE A: TEXT LEFT / IMAGE RIGHT ═══ -->
+<!-- ??? FEATURE A: TEXT LEFT / IMAGE RIGHT ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
   <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
     <div class="w-full lg:flex-1 flex flex-col gap-5 lg:gap-6 lg:px-6">
@@ -181,7 +205,7 @@
   </div>
 </section>
 
-<!-- ═══ FEATURE B: IMAGE LEFT / TEXT RIGHT ═══ -->
+<!-- ??? FEATURE B: IMAGE LEFT / TEXT RIGHT ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
   <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
     <div class="w-full lg:shrink-0 lg:h-[500px] lg:w-[681px] h-[220px] bg-[#d9d9d9] rounded-3xl order-2 lg:order-1"></div>
@@ -193,7 +217,7 @@
   </div>
 </section>
 
-<!-- ═══ FEATURE C: TEXT LEFT / IMAGE RIGHT ═══ -->
+<!-- ??? FEATURE C: TEXT LEFT / IMAGE RIGHT ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
   <div class="flex flex-col lg:flex-row gap-10 lg:gap-20 items-center">
     <div class="w-full lg:flex-1 flex flex-col gap-5 lg:gap-6 lg:px-6">
@@ -205,10 +229,10 @@
   </div>
 </section>
 
-<!-- ═══ PARTNERS (DARK) ═══ -->
+<!-- ??? PARTNERS (DARK) ??? -->
 <section id="partner-section" class="relative bg-black py-10 lg:py-20 overflow-hidden" style="cursor:none;">
   <!-- Background image -->
-  <div class="absolute inset-0 overflow-hidden pointer-events-none">
+  <div class="absolute inset-0 pointer-events-none">
     <img src="image/partner-section-bg.png" alt="" class="absolute max-w-none w-full" style="top:-46.81%;height:157.52%;left:0;" />
   </div>
   <div class="relative z-10 text-white text-center max-w-[860px] mx-auto px-5 mb-10 lg:mb-16 flex flex-col gap-4 lg:gap-6">
@@ -222,7 +246,7 @@
   <div id="partner-slider" class="relative z-10 select-none"></div>
 </section>
 
-<!-- ═══ FAQ ═══ -->
+<!-- ??? FAQ ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
   <div class="max-w-[1024px] mx-auto flex flex-col gap-8 lg:gap-10">
     <div class="flex flex-col gap-3 lg:gap-4">
@@ -233,7 +257,7 @@
   </div>
 </section>
 
-<!-- ═══ RATE THE DESIGN ═══ -->
+<!-- ??? RATE THE DESIGN ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
   <div class="bg-white rounded-[24px] p-8 lg:p-[60px] flex flex-col gap-8 lg:gap-[32px] items-center text-center">
     <div class="flex flex-col gap-4 lg:gap-6 max-w-[600px]">
@@ -245,10 +269,12 @@
   </div>
 </section>
 
-<!-- ═══ NEWS ═══ -->
+<!-- ??? NEWS ??? -->
 <section class="px-5 lg:px-16 py-10 lg:py-20">
-  <h2 class="font-semibold text-[24px] lg:text-[52px] leading-[1.2] text-center mb-6 lg:mb-10">News</h2>
-  <div id="news-cards" class="flex gap-4 lg:gap-8 overflow-x-auto pb-3 no-scroll mb-8 lg:mb-10 cursor-grab select-none"></div>
+  <div class="flex flex-col gap-4 lg:gap-6 mb-8 lg:mb-12 items-center text-center">
+    <h2 class="font-medium text-[24px] lg:text-[52px] leading-[1.2]">News</h2>
+  </div>
+  <div id="news-cards" class="flex gap-4 lg:gap-8 overflow-x-auto py-4 no-scroll cursor-grab select-none"></div>
   <div class="flex justify-center">
     <a href="#" class="btn-pill"><span class="btn-pill-icon"><img src="icon/arrow-right.svg" alt=""/></span>View all</a>
   </div>
@@ -258,7 +284,7 @@
 <div id="footer-root"></div>
 
 <script>
-/* ── Fragment loader ── */
+/* ?? Fragment loader ?? */
 async function loadFragment(p,id){
   try{
     const r=await fetch(p);
@@ -278,15 +304,15 @@ async function loadFragment(p,id){
 loadFragment('header.html','header-root');
 loadFragment('footer.html','footer-root');
 
-/* ── Products ── */
+/* ?? Products ?? */
 const products=[
-  {title:'Cloud Services',img:'image/card-green.jpg'},
-  {title:'Digital Transformation (SMEs)',img:'image/card-green.jpg'},
-  {title:'Business support',img:null},
-  {title:'Business support',img:null},
-  {title:'Business support',img:null},
+  {title:'Cloud Services',img:'image/card-green.jpg',featured:false},
+  {title:'Digital Transformation (SMEs)',img:'image/card-green.jpg',featured:true},
+  {title:'Business support',img:'image/card-green.jpg',featured:false},
+  {title:'Business support',img:'image/card-green.jpg',featured:false},
+  {title:'Business support',img:'image/card-green.jpg',featured:false},
 ];
-/* ── Drag-scroll helper ── */
+/* ?? Drag-scroll helper ?? */
 function makeDraggable(el){
   let isDown=false,startX,scrollLeft,moved=false;
   el.addEventListener('mousedown',e=>{
@@ -316,7 +342,7 @@ function makeDraggable(el){
 makeDraggable(document.getElementById('product-cards'));
 makeDraggable(document.getElementById('news-cards'));
 
-/* ── Partners / Testimonials Carousel ── */
+/* ?? Partners / Testimonials Carousel ?? */
 const testimonials=[
   {quote:'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',name:'Name',position:'Brand name position',cardGrad:'linear-gradient(119.4deg,rgba(131,51,166,0) 33%,rgba(131,51,166,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',img:'image/partner-card-purple.png',imgLeft:'-60.17%',imgTop:'-13.95%',imgW:'220.35%',imgH:'126.62%'},
   {quote:'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor.',name:'Another Name',position:'Another Brand',cardGrad:'linear-gradient(119.4deg,rgba(5,182,190,0) 33%,rgba(5,182,190,0.2) 87%),linear-gradient(90deg,rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.1) 100%)',img:'image/partner-card-teal.png',imgLeft:'-56.63%',imgTop:'0.01%',imgW:'174.03%',imgH:'100%'},
@@ -333,7 +359,7 @@ function renderPartnerSlider(){
   const n=testimonials.length;
 
   if(isMobile){
-    /* ── Mobile: simple single-card, full-width ── */
+    /* ?? Mobile: simple single-card, full-width ?? */
     partnerSlider.style.height='auto';
     partnerSlider.style.padding='0 20px';
     partnerSlider.style.position='static';
@@ -350,7 +376,7 @@ function renderPartnerSlider(){
         </div>
       </div>`).join('');
   } else {
-    /* ── Desktop: 3-D peek carousel ── */
+    /* ?? Desktop: 3-D peek carousel ?? */
     const CARD_W=1080,CARD_H=550,SIDE_OFF=1020;
     partnerSlider.style.height='630px';
     partnerSlider.style.padding='0';
@@ -417,7 +443,7 @@ function renderPartnerSlider(){
 
 renderPartnerSlider();
 
-/* ── Custom drag cursor for partner section ── */
+/* ?? Custom drag cursor for partner section ?? */
 (function(){
   const section = document.getElementById('partner-section');
   const cursor  = document.getElementById('drag-cursor');
@@ -465,26 +491,24 @@ renderPartnerSlider();
 })();
 
 document.getElementById('product-cards').innerHTML=products.map(p=>`
-  <div class="group bg-white rounded-[16px] lg:rounded-[32px] shrink-0 w-[200px] sm:w-[260px] lg:w-[440px] overflow-hidden flex flex-col cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
-    <div class="${p.img?'relative overflow-hidden':'bg-[#7d7d7d] group-hover:bg-[#5d5d5d]'} h-[200px] sm:h-[260px] lg:h-[440px] shrink-0 transition-colors duration-300">
-      ${p.img?`<img src="${p.img}" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>`:''}
+  <div class="group bg-white rounded-[16px] lg:rounded-[32px] overflow-hidden shrink-0 w-[200px] sm:w-[260px] lg:w-[440px] flex flex-col cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
+    <div class="relative h-[200px] sm:h-[260px] lg:h-[440px] shrink-0 bg-[#0d1a0d]">
+      <img src="${p.img}" alt="" class="absolute inset-0 w-full h-full object-cover"/>
     </div>
     <div class="p-4 lg:p-8 flex flex-col gap-2 lg:gap-3 flex-1">
       <h3 class="font-semibold text-[15px] lg:text-2xl text-black group-hover:text-[#76be29] transition-colors duration-300">${p.title}</h3>
-      <p class="text-[12px] lg:text-[16px] opacity-80 flex-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+      <p class="text-[12px] lg:text-[16px] opacity-80 flex-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       <div class="flex justify-end">
-        <div class="flex items-center justify-center size-9 lg:size-12 border border-black/15 rounded-full group-hover:bg-[#76be29] group-hover:border-[#76be29] transition-all duration-300">
-          <img src="icon/arrow-right.svg" class="w-4 h-4 group-hover:invert transition-all duration-300" alt=""/>
-        </div>
+        <img src="icon/arrow-right.svg" class="w-5 h-5 opacity-50 group-hover:opacity-100 group-hover:[filter:invert(60%)_sepia(100%)_saturate(300%)_hue-rotate(60deg)_brightness(1.2)] transition-all duration-300" alt=""/>
       </div>
     </div>
   </div>`).join('');
 
-/* ── Tabs ── */
+/* ?? Tabs ?? */
 const tabs=[
   {id:'bm',label:'Business Management',html:`<div class="flex flex-col lg:flex-row gap-6 lg:gap-16 items-start"><div class="flex flex-col gap-4 lg:gap-6 flex-1"><div class="bg-[#76BE29] rounded-xl size-10 lg:size-16 flex items-center justify-center"><img src="icon/grid.svg" class="w-5 lg:w-7 h-5 lg:h-7 invert" alt=""/></div><h3 class="font-semibold text-[18px] lg:text-[32px] leading-[1.2]">Business Management</h3><p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 max-w-[440px]"></div>`},
   {id:'wp',label:'WordPress',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">WordPress Hosting</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Optimized WordPress hosting with 1-click install, auto-updates and 24/7 expert support in Vietnam.</p>'},
-  {id:'fm',label:'Financial management',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">Financial Management</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Integrated financial tools to track revenue, expenses and invoices — all synced with your hosting dashboard.</p>'},
+  {id:'fm',label:'Financial management',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">Financial Management</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Integrated financial tools to track revenue, expenses and invoices � all synced with your hosting dashboard.</p>'},
   {id:'tl',label:'Tools',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">Developer Tools</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Access SSH, Git, staging environments and advanced CLI tools.</p>'},
   {id:'mm',label:'Mail Marketing',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">Mail Marketing</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Send targeted campaigns with professional email marketing tools and built-in analytics.</p>'},
   {id:'cm',label:'CMS',html:'<h3 class="font-semibold text-[20px] lg:text-[32px] mb-3 lg:mb-4">CMS Platform</h3><p class="text-[13px] lg:text-[16px] opacity-70 leading-relaxed max-w-[500px]">Launch a fully managed CMS with drag-and-drop editors, SEO tools and multi-language support.</p>'},
@@ -514,7 +538,7 @@ function setTab(i){activeTab=i;tabDropOpen=false;renderTabs();}
 function toggleTabDrop(){tabDropOpen=!tabDropOpen;renderTabs();}
 renderTabs();
 
-/* ── FAQ ── */
+/* ?? FAQ ?? */
 const faqs=[
   ['Who is Cyberbase?','Cyberbase is a professional hosting service provider for all audiences in Vietnamese and foreign markets.'],
   ["What is Cyberbase's website builder function?","Our website builder provides drag-and-drop tools for creating professional websites without any programming knowledge."],
@@ -537,7 +561,7 @@ document.getElementById('faq-list').innerHTML=faqs.map((f,i)=>`
     <p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 mt-3 lg:mt-4 pr-10 lg:pr-16">${f[1]}</p>
   </details>`).join('');
 
-/* ── Brand logos – Intersection Observer ── */
+/* ?? Brand logos � Intersection Observer ?? */
 (function(){
   const logos = document.querySelectorAll('.brand-logo');
   const obs = new IntersectionObserver((entries) => {
@@ -554,25 +578,23 @@ document.getElementById('faq-list').innerHTML=faqs.map((f,i)=>`
   });
 })();
 
-/* ── News ── */
+/* ?? News ?? */
 const news=[
-  {title:'Cloud Services',green:false,img:'image/card-green.jpg'},
-  {title:'Digital Transformation (SMEs)',green:false,img:'image/card-green.jpg'},
-  {title:'Business support',green:false,img:null},
-  {title:'Business support',green:false,img:null},
+  {title:'Cloud Services',featured:false,img:'image/card-green.jpg'},
+  {title:'Digital Transformation (SMEs)',featured:true,img:'image/card-green.jpg'},
+  {title:'Business support',featured:false,img:'image/card-green.jpg'},
+  {title:'Business support',featured:false,img:'image/card-green.jpg'},
 ];
 document.getElementById('news-cards').innerHTML=news.map(n=>`
-  <div class="group bg-white rounded-[16px] lg:rounded-[32px] shrink-0 w-[200px] sm:w-[260px] lg:w-[440px] overflow-hidden flex flex-col cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
-    <div class="${n.img?'relative overflow-hidden':'bg-[#7d7d7d] group-hover:bg-[#5d5d5d]'} h-[200px] sm:h-[260px] lg:h-[440px] shrink-0 transition-colors duration-300">
-      ${n.img?`<img src="${n.img}" alt="" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"/>`:''}
+  <div class="group bg-white rounded-[16px] lg:rounded-[32px] overflow-hidden shrink-0 w-[200px] sm:w-[260px] lg:w-[440px] flex flex-col cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
+    <div class="relative h-[200px] sm:h-[260px] lg:h-[440px] shrink-0 bg-[#0d1a0d]">
+      <img src="${n.img}" alt="" class="absolute inset-0 w-full h-full object-cover"/>
     </div>
     <div class="p-4 lg:p-8 flex flex-col gap-2 lg:gap-3 flex-1">
-      <p class="font-semibold text-[15px] lg:text-2xl ${n.green?'text-[#76be29]':'text-black group-hover:text-[#76be29] transition-colors duration-300'}">${n.title}</p>
-      <p class="text-[12px] lg:text-[16px] opacity-80 leading-relaxed flex-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor.</p>
+      <p class="font-semibold text-[15px] lg:text-2xl text-black group-hover:text-[#76be29] transition-colors duration-300">${n.title}</p>
+      <p class="text-[12px] lg:text-[16px] opacity-80 leading-relaxed flex-1">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       <div class="flex justify-end">
-        <div class="flex items-center justify-center size-9 lg:size-12 border border-black/15 rounded-full group-hover:bg-[#76be29] group-hover:border-[#76be29] transition-all duration-300">
-          <img src="icon/arrow-right.svg" class="w-4 h-4 group-hover:invert transition-all duration-300" alt=""/>
-        </div>
+        <img src="icon/arrow-right.svg" class="w-5 h-5 opacity-50 group-hover:opacity-100 group-hover:[filter:invert(60%)_sepia(100%)_saturate(300%)_hue-rotate(60deg)_brightness(1.2)] transition-all duration-300" alt=""/>
       </div>
     </div>
   </div>`).join('');
