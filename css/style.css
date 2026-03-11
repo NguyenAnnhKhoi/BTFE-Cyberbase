@@ -205,3 +205,17 @@ details[open] .faq-icon {
     height: 40px;
   }
 }
+
+/* ── Mobile: hide animated dots, balance padding ── */
+@media (max-width: 1023px) {
+  .icon-green,
+  .btn-pill-icon {
+    display: none;
+  }
+  .btn-black {
+    padding: 12px 20px;
+  }
+  .btn-pill {
+    padding: 12px 24px;
+  }
+}
