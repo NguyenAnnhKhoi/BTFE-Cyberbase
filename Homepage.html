@@ -265,7 +265,7 @@
       <p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80">Each package is designed with outstanding performance, ease of management, and the support of experts right in Vietnam that you can chat with anytime.</p>
     </div>
     <div class="flex flex-wrap gap-2 lg:gap-3 justify-center" id="rating-btns"></div>
-    <a href="#" class="btn-black"><span class="icon-green"><img src="icon/arrow-right.svg" class="w-4 h-4 invert" alt=""/></span>Submit</a>
+    <a href="thankspage.html" class="btn-black"><span class="icon-green"><img src="icon/arrow-right.svg" class="w-4 h-4 invert" alt=""/></span>Submit</a>
   </div>
 </section>
 
@@ -359,22 +359,46 @@ function renderPartnerSlider(){
   const n=testimonials.length;
 
   if(isMobile){
-    /* ?? Mobile: simple single-card, full-width ?? */
-    partnerSlider.style.height='auto';
-    partnerSlider.style.padding='0 20px';
-    partnerSlider.style.position='static';
-    partnerSlider.innerHTML=testimonials.map((t,i)=>`
-      <div class="partner-card-mob" style="display:${i===partnerActive?'flex':'none'};flex-direction:column;gap:24px;padding:24px;border-radius:24px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);background:${t.cardGrad};">
-        ${QUOTE_SVG}
-        <p style="font-weight:500;font-size:18px;color:#fff;line-height:1.5;flex:1;">${t.quote}</p>
-        <div style="height:180px;border-radius:16px;overflow:hidden;position:relative;">
-          <img src="${t.img}" alt="" style="position:absolute;max-width:none;left:${t.imgLeft};top:0;width:${t.imgW};height:100%;" />
+    /* ?? Mobile: Figma peek carousel ?? */
+    const CARD_W=270,CARD_H=506,MOB_OFF=285;
+    partnerSlider.style.height='560px';
+    partnerSlider.style.padding='0';
+    partnerSlider.style.position='relative';
+
+    partnerSlider.innerHTML=testimonials.map((t,i)=>{
+      let d=i-partnerActive;
+      if(d> n/2) d-=n;
+      if(d<-n/2) d+=n;
+      let tx,rot,sc,op,zi;
+      if(d===0){tx=0;rot=0;sc=1;op=1;zi=10;}
+      else if(d===-1){tx=-MOB_OFF;rot=-5;sc=0.88;op=0.7;zi=5;}
+      else if(d===1){tx=MOB_OFF;rot=5;sc=0.88;op=0.7;zi=5;}
+      else{tx=d<0?-MOB_OFF*2:MOB_OFF*2;rot=d<0?-10:10;sc=0.75;op=0;zi=1;}
+
+      return `<div style="
+        position:absolute;width:${CARD_W}px;height:${CARD_H}px;
+        left:50%;top:20px;
+        transform:translate(calc(-50% + ${tx}px),0) rotate(${rot}deg) scale(${sc});
+        opacity:${op};z-index:${zi};
+        transition:transform .5s cubic-bezier(.34,1.26,.64,1),opacity .5s ease;pointer-events:${d===0?'auto':'none'};
+      ">
+        <!-- Glass card background -->
+        <div style="position:absolute;top:0;left:0;width:${CARD_W}px;height:474px;border-radius:16px;backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.2);background:${t.cardGrad};"></div>
+        <!-- Content column -->
+        <div style="position:absolute;left:16px;top:16px;width:238px;height:490px;display:flex;flex-direction:column;gap:16px;overflow:hidden;">
+          ${QUOTE_SVG}
+          <p style="font-weight:500;font-size:16px;color:#fff;line-height:1.5;">${t.quote}</p>
+          <div style="display:flex;flex-direction:column;gap:4px;">
+            <p style="font-weight:600;font-size:16px;color:#fff;line-height:1.5;">${t.name}</p>
+            <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.4;">${t.position}</p>
+          </div>
+          <!-- Image panel -->
+          <div style="height:250px;width:238px;border-radius:16px;overflow:hidden;flex-shrink:0;position:relative;box-shadow:0 4px 20px rgba(0,0,0,0.1);">
+            <img src="${t.img}" alt="" style="position:absolute;max-width:none;left:${t.imgLeft};top:${t.imgTop};width:${t.imgW};height:${t.imgH};" />
+          </div>
         </div>
-        <div>
-          <p style="font-weight:600;font-size:20px;color:#fff;line-height:1.2;">${t.name}</p>
-          <p style="font-size:14px;color:rgba(255,255,255,0.8);line-height:1.2;">${t.position}</p>
-        </div>
-      </div>`).join('');
+      </div>`;
+    }).join('');
   } else {
     /* ?? Desktop: 3-D peek carousel ?? */
     const CARD_W=1080,CARD_H=550,SIDE_OFF=1020;

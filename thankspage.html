@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>CyberBase – Thank you</title>
+  <link rel="stylesheet" href="css/style.css"/>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      future: { hoverOnlyWhenSupported: true },
+      theme: { extend: {
+        colors: { primary: '#76BE29' },
+        fontFamily: { sans: ['Wix Madefor Display','sans-serif'] }
+      }}
+    }
+  </script>
+</head>
+<body class="bg-[#f9f5f3] antialiased overflow-x-hidden min-h-screen flex flex-col">
+
+<div id="header-root"></div>
+
+<main class="flex-1 flex items-center justify-center px-5 lg:px-16 py-10 lg:py-20">
+  <div class="container max-w-7xl w-full">
+    <div class="bg-white rounded-[24px] w-full flex items-center justify-center p-8 lg:p-[60px] min-h-[300px] lg:min-h-[408px]">
+      <div class="flex flex-col gap-6 items-center text-center max-w-[600px]">
+        <!-- Green checkmark badge -->
+        <img src="image/thanks.png" alt="Success" class="w-[88px] h-[100px] object-contain"/>
+        <h1 class="font-medium text-[28px] lg:text-[40px] leading-[1.2] text-black">Thank you</h1>
+        <p class="text-[14px] lg:text-[16px] leading-relaxed opacity-80 text-black">Each package is designed with outstanding performance, ease of management, and the support of experts right in Vietnam that you can chat with anytime.</p>
+        <a href="Homepage.html" class="btn-pill mt-2">
+          <span class="btn-pill-icon"><img src="icon/arrow-right.svg" alt=""/></span>Back to home
+        </a>
+      </div>
+    </div>
+  </div>
+</main>
+
+<div id="footer-root"></div>
+
+<script>
+async function loadFragment(p,id){
+  try{
+    const r=await fetch(p);
+    if(!r.ok)return;
+    const html=await r.text();
+    const el=document.getElementById(id);
+    el.innerHTML=html;
+    el.querySelectorAll('script').forEach(old=>{
+      const s=document.createElement('script');
+      [...old.attributes].forEach(a=>s.setAttribute(a.name,a.value));
+      s.textContent=old.textContent;
+      old.replaceWith(s);
+    });
+  }catch(e){}
+}
+loadFragment('header.html','header-root');
+loadFragment('footer.html','footer-root');
+</script>
+</body>
+</html>
