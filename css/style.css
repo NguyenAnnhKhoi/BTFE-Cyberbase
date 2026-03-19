@@ -10,6 +10,66 @@ body {
   margin: 0 auto;
 }
 /* ── Header ── */
+#header-root {
+  min-height: 88px;
+}
+
+#cb-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  overflow: visible;
+  z-index: 60;
+  transition: transform .28s ease, opacity .28s ease;
+}
+
+#cb-header.cb-header-hidden {
+  transform: translateY(calc(-100% - 10px));
+  opacity: .98;
+}
+
+#cb-header.cb-menu-open {
+  transform: translateY(0) !important;
+  opacity: 1 !important;
+}
+
+#cb-lang-pill {
+  transition: opacity .22s ease, transform .22s ease, width .22s ease, margin .22s ease;
+}
+
+#cb-header.cb-header-scrolled #cb-lang-pill {
+  opacity: 0;
+  transform: scale(.88);
+  pointer-events: none;
+  width: 0;
+  margin: 0;
+  overflow: hidden;
+}
+
+#cb-mobile-menu {
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 9999 !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100dvh !important;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+#cb-mobile-menu.hidden {
+  display: none !important;
+}
+
+#cb-mobile-menu.flex {
+  display: flex !important;
+}
+
 #cb-header * {
   font-family: 'Wix Madefor Display', sans-serif;
 }
@@ -102,8 +162,8 @@ details[open] .faq-icon {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
+  background: #FFF;
+  border: 1px solid var(--Black, #000);
   border-radius: 80px;
   padding: 6px 24px 6px 6px;
   font-weight: 500;
@@ -111,6 +171,9 @@ details[open] .faq-icon {
   white-space: nowrap;
   color: #000;
   transition: box-shadow .2s ease;
+}
+.btn-pill--no-border {
+  border: none;
 }
 @media (hover: hover) {
   .btn-pill:hover {
@@ -192,6 +255,19 @@ details[open] .faq-icon {
 }
 .brand-logo img {
   filter: grayscale(100%);
+}
+
+/* ── Scroll reveal animation ── */
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .65s ease, transform .65s cubic-bezier(.22,1,.36,1);
+  will-change: opacity, transform;
+}
+
+.scroll-reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 /* ── Responsive ── */

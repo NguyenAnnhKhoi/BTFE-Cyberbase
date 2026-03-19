@@ -86,7 +86,7 @@
     </nav>
 
     <!-- Language pill (desktop) -->
-    <div class="relative hidden md:flex items-center justify-center w-14 h-14 rounded-[80px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.04)] shrink-0">
+    <div id="cb-lang-pill" class="relative hidden md:flex items-center justify-center w-14 h-14 rounded-[80px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.04)] shrink-0">
       <button id="nav-lang" class="flex items-center gap-0.5 text-sm font-semibold text-black tracking-[1.4px] uppercase">
         <span id="lang-label-desk">EN</span>
         <img src="icon/chevron.svg" id="nav-lang-chevron" class="opacity-50 w-3 h-3 shrink-0 transition-transform duration-200" alt=""/>
@@ -266,15 +266,19 @@
     const openBtn = document.getElementById('cb-menu-open');
     const closeBtn = document.getElementById('cb-menu-close');
     const menu = document.getElementById('cb-mobile-menu');
+    const header = document.getElementById('cb-header');
     function openMenu() {
       menu.classList.remove('hidden');
       menu.classList.add('flex');
+      header?.classList.remove('cb-header-hidden');
+      header?.classList.add('cb-menu-open');
       openBtn.setAttribute('aria-expanded', 'true');
       document.documentElement.style.overflow = 'hidden';
     }
     function closeMenu() {
       menu.classList.add('hidden');
       menu.classList.remove('flex');
+      header?.classList.remove('cb-menu-open');
       openBtn.setAttribute('aria-expanded', 'false');
       document.documentElement.style.overflow = '';
       // reset all mobile accordions
