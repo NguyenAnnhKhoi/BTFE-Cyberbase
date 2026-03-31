@@ -73,6 +73,16 @@ body {
 #cb-header * {
   font-family: 'Wix Madefor Display', sans-serif;
 }
+
+.cb-logo-wrap {
+  line-height: 0;
+}
+
+.cb-logo-img {
+  display: block;
+  transform: translateY(-0.5px);
+}
+
 #cb-header a,
 #cb-header button {
   transition: opacity .15s;

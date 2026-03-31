@@ -22,6 +22,59 @@
       #rating-btns { gap: 12px; }
       #rating-btns button { width: 52px; height: 52px; font-size: 16px; }
     }
+
+    /* Brand logos: normalize size and center to avoid visual misalignment */
+    .brand-marquee-track .brand-logo {
+      width: 142px !important;
+      height: 68px !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .brand-marquee-track .brand-logo img {
+      width: 128px;
+      height: 38px;
+      object-fit: contain;
+      object-position: center;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .brand-marquee-track .brand-logo img[src*="brand-01.png"] {
+      width: 138px;
+      height: 42px;
+      transform: scale(1.55);
+      transform-origin: center;
+    }
+
+    .brand-marquee-track .brand-logo img[src*="brand-07.png"] {
+      transform: translateY(2px);
+    }
+
+    @media (max-width: 1023px) {
+      .brand-marquee-track .brand-logo {
+        width: 84px !important;
+        height: 40px !important;
+      }
+
+      .brand-marquee-track .brand-logo img {
+        width: 76px;
+        height: 24px;
+      }
+
+      .brand-marquee-track .brand-logo img[src*="brand-01.png"] {
+        width: 82px;
+        height: 26px;
+        transform: scale(1.35);
+        transform-origin: center;
+      }
+
+      .brand-marquee-track .brand-logo img[src*="brand-07.png"] {
+        transform: translateY(1px);
+      }
+    }
   </style>
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -118,7 +171,7 @@
 </section>
 
 <!-- ??? CONVERT / TABS ??? -->
-<section class="relative px-10 lg:px-16 py-10 lg:py-20">
+<section id="tab-section" class="relative px-10 lg:px-16 py-10 lg:py-20" style="width:100vw; margin-left:calc(50% - 50vw); margin-right:calc(50% - 50vw); box-sizing:border-box;">
 
   <!-- Header: title ? tabs ? description ? all centred, clean bg -->
   <div class="flex flex-col gap-5 lg:gap-6 items-center text-center w-full mb-8 lg:mb-10">
@@ -477,11 +530,38 @@ function updatePartnerArcEffect(scroller){
   });
 }
 
-function enablePartnerDragScroll(scroller){
+let partnerAutoTimer=null;
+let partnerResumeTimer=null;
+
+function clearPartnerTimers(){
+  if(partnerAutoTimer){
+    clearInterval(partnerAutoTimer);
+    partnerAutoTimer=null;
+  }
+  if(partnerResumeTimer){
+    clearTimeout(partnerResumeTimer);
+    partnerResumeTimer=null;
+  }
+}
+
+function enablePartnerInfiniteCarousel(scroller){
+  const cards=[...scroller.querySelectorAll('.partner-card')];
+  const baseCount=testimonials.length;
+  if(cards.length < baseCount * 3) return;
+
   let isDragging=false;
   let startX=0;
   let startScroll=0;
   let rafId=0;
+
+  const startCard=cards[baseCount];
+  let currentIndex=baseCount;
+
+  function getCenteredLeft(index){
+    const card=cards[index];
+    if(!card) return scroller.scrollLeft;
+    return card.offsetLeft - (scroller.clientWidth - card.offsetWidth) / 2;
+  }
 
   function queueArcUpdate(){
     if(rafId) return;
@@ -491,11 +571,68 @@ function enablePartnerDragScroll(scroller){
     });
   }
 
+  function jumpTo(index){
+    currentIndex=index;
+    scroller.scrollTo({left:getCenteredLeft(index),behavior:'auto'});
+    queueArcUpdate();
+  }
+
+  function smoothTo(index){
+    currentIndex=index;
+    scroller.scrollTo({left:getCenteredLeft(index),behavior:'smooth'});
+    queueArcUpdate();
+  }
+
+  function normalizeLoop(){
+    if(currentIndex >= baseCount * 2){
+      jumpTo(currentIndex - baseCount);
+    }else if(currentIndex < baseCount){
+      jumpTo(currentIndex + baseCount);
+    }
+  }
+
+  function snapToNearest(){
+    const viewportCenter=scroller.scrollLeft + scroller.clientWidth / 2;
+    let nearest=baseCount;
+    let minDist=Infinity;
+
+    for(let i=0;i<cards.length;i++){
+      const cardCenter=cards[i].offsetLeft + cards[i].offsetWidth / 2;
+      const dist=Math.abs(cardCenter-viewportCenter);
+      if(dist < minDist){
+        minDist=dist;
+        nearest=i;
+      }
+    }
+
+    smoothTo(nearest);
+    window.setTimeout(()=>{
+      currentIndex=nearest;
+      normalizeLoop();
+    },360);
+  }
+
+  function pauseAndResumeAuto(){
+    clearPartnerTimers();
+    partnerResumeTimer=window.setTimeout(startAuto,1800);
+  }
+
+  function startAuto(){
+    clearPartnerTimers();
+    partnerAutoTimer=window.setInterval(()=>{
+      smoothTo(currentIndex+1);
+      window.setTimeout(normalizeLoop,380);
+    },2600);
+  }
+
+  jumpTo(baseCount);
+
   scroller.addEventListener('pointerdown',e=>{
     isDragging=true;
     startX=e.clientX;
     startScroll=scroller.scrollLeft;
     scroller.style.cursor='grabbing';
+    pauseAndResumeAuto();
     scroller.setPointerCapture(e.pointerId);
   });
 
@@ -513,17 +650,23 @@ function enablePartnerDragScroll(scroller){
     if(scroller.hasPointerCapture && scroller.hasPointerCapture(e.pointerId)){
       scroller.releasePointerCapture(e.pointerId);
     }
+    snapToNearest();
   }
 
   scroller.addEventListener('pointerup',stopDragging);
   scroller.addEventListener('pointercancel',stopDragging);
+  scroller.addEventListener('mouseenter',pauseAndResumeAuto);
+  scroller.addEventListener('wheel',pauseAndResumeAuto,{passive:true});
   scroller.addEventListener('scroll',queueArcUpdate,{ passive:true });
 
   queueArcUpdate();
+  startAuto();
 }
 
 function renderPartnerSlider(){
+  clearPartnerTimers();
   const isMobile=window.innerWidth<768;
+  const repeated=[...testimonials,...testimonials,...testimonials];
 
   partnerSlider.style.height='auto';
   partnerSlider.style.padding='0';
@@ -538,14 +681,14 @@ function renderPartnerSlider(){
       padding:${isMobile?'0 16px 6px':'0 40px 10px'};
       -webkit-overflow-scrolling:touch;
     ">
-      <div style="display:flex;gap:${isMobile?'20px':'36px'};width:max-content;align-items:stretch;">
-        ${testimonials.map(t=>renderPartnerCard(t,isMobile)).join('')}
+      <div id="partner-track" style="display:flex;gap:${isMobile?'20px':'36px'};width:max-content;align-items:stretch;">
+        ${repeated.map(t=>renderPartnerCard(t,isMobile)).join('')}
       </div>
     </div>
   `;
 
   const viewport=document.getElementById('partner-viewport');
-  if(viewport) enablePartnerDragScroll(viewport);
+  if(viewport) enablePartnerInfiniteCarousel(viewport);
 }
 
 renderPartnerSlider();
@@ -599,7 +742,7 @@ window.addEventListener('resize', renderPartnerSlider);
 })();
 
 document.getElementById('product-cards').innerHTML=products.map(p=>`
-  <div class="group bg-white rounded-[16px] lg:rounded-[32px] overflow-hidden shrink-0 w-[240px] sm:w-[280px] lg:w-[440px] flex flex-col cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
+  <div class="group bg-white rounded-[16px] lg:rounded-[32px] overflow-hidden shrink-0 w-[240px] sm:w-[280px] lg:w-[440px] flex flex-col cursor-pointer transition-none hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
     <div class="relative aspect-square lg:aspect-auto lg:h-[440px] shrink-0 bg-[#0d1a0d]">
       <img src="${p.img}" alt="" class="absolute inset-0 w-full h-full object-cover"/>
     </div>
@@ -666,6 +809,18 @@ document.getElementById('faq-list').innerHTML=faqs.map((f,i)=>`
     </summary>
     <p class="text-[13px] lg:text-[16px] leading-relaxed opacity-80 mt-3 lg:mt-4 pr-10 lg:pr-16">${f[1]}</p>
   </details>`).join('');
+
+/* FAQ accordion: keep only one item open at a time */
+const faqDetails=[...document.querySelectorAll('#faq-list details')];
+faqDetails.forEach(current=>{
+  current.addEventListener('toggle',()=>{
+    if(!current.open) return;
+    faqDetails.forEach(other=>{
+      if(other!==current) other.open=false;
+    });
+  });
+});
+
 /* Brand logos Intersection Observer */
 (function(){
   const logos = document.querySelectorAll('.brand-logo');
@@ -691,7 +846,7 @@ const news=[
   {title:'Business support',featured:false,img:'image/card-green.jpg'},
 ];
 document.getElementById('news-cards').innerHTML=news.map(n=>`
-  <div class="group bg-white rounded-[16px] lg:rounded-[32px] overflow-hidden shrink-0 w-[240px] sm:w-[280px] lg:w-[440px] flex flex-col cursor-pointer transition-all duration-300 ease-out hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
+  <div class="group bg-white rounded-[16px] lg:rounded-[32px] overflow-hidden shrink-0 w-[240px] sm:w-[280px] lg:w-[440px] flex flex-col cursor-pointer transition-none hover:scale-[1.03] hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.15)]">
     <div class="relative aspect-square lg:aspect-auto lg:h-[440px] shrink-0 bg-[#0d1a0d]">
       <img src="${n.img}" alt="" class="absolute inset-0 w-full h-full object-cover"/>
     </div>

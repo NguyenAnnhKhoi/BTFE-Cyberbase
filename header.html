@@ -3,11 +3,11 @@
   <div class="max-w-7xl mx-auto flex items-center gap-3">
 
     <!-- Main pill -->
-    <nav class="bg-white flex flex-1 items-center h-auto md:h-[72px] pl-6 pr-3 py-[6px] md:py-1.5 rounded-[80px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.04)]" aria-label="Main navigation">
+    <nav id="cb-main-pill" class="bg-white flex flex-1 items-center h-auto md:h-[72px] pl-6 pr-3 py-[6px] md:py-1.5 rounded-[80px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.04)]" aria-label="Main navigation">
 
       <!-- Logo -->
-      <a href="#" aria-label="CyberBase home" class="shrink-0">
-        <img src="icon/Logo.svg" alt="CyberBase" class="h-6 md:h-9 w-auto" />
+      <a href="#" aria-label="CyberBase home" class="cb-logo-wrap shrink-0 flex items-center">
+        <img src="icon/Logo.svg" alt="CyberBase" class="cb-logo-img h-6 md:h-9 w-auto block" />
       </a>
 
       <!-- Nav links -->
@@ -106,8 +106,8 @@
 
       <!-- Menu Mb pill -->
       <div class="bg-white flex items-center pl-6 pr-3 py-[6px] rounded-[80px] shadow-[0px_0px_20px_0px_rgba(0,0,0,0.04)] shrink-0">
-        <a href="#" aria-label="CyberBase home" class="shrink-0">
-          <img src="icon/Logo.svg" alt="CyberBase" class="h-6 w-auto"/>
+        <a href="#" aria-label="CyberBase home" class="cb-logo-wrap shrink-0 flex items-center">
+          <img src="icon/Logo.svg" alt="CyberBase" class="cb-logo-img h-6 w-auto block"/>
         </a>
         <div class="flex items-center ml-auto">
           <!-- Cart with 99+ badge -->
@@ -223,7 +223,8 @@
   <!-- Backdrop -->
   <div id="cb-search-backdrop" class="absolute inset-0 bg-black/20 backdrop-blur-[2px]"></div>
   <!-- Panel aligned with header pill -->
-  <div class="relative z-10 max-w-7xl mx-auto px-6 pt-3">
+  <div class="relative z-10 pt-3">
+    <div id="cb-search-panel" class="max-w-7xl mx-auto px-6">
     <!-- Frosted glass card -->
     <div class="backdrop-blur-[6px] bg-[rgba(254,252,251,0.9)] border-2 border-white rounded-[28px] md:rounded-[36px] shadow-[0_0_32px_rgba(0,0,0,0.1)] flex flex-col">
       <!-- Search bar row -->
@@ -257,6 +258,7 @@
           </a>
         </div>
       </div>
+    </div>
     </div>
   </div>
 </div>
@@ -422,7 +424,22 @@
     const closeBtn = document.getElementById('cb-search-close');
     const backdrop = document.getElementById('cb-search-backdrop');
     const input    = document.getElementById('cb-search-input');
+    const panel    = document.getElementById('cb-search-panel');
+    const mainPill = document.getElementById('cb-main-pill');
+
+    function syncSearchPanelWidth() {
+      if (!panel || !mainPill) return;
+      const rect = mainPill.getBoundingClientRect();
+      const viewportMax = Math.max(window.innerWidth - 24, 0);
+      const targetWidth = Math.min(Math.round(rect.width), viewportMax);
+      panel.style.width = targetWidth + 'px';
+      panel.style.maxWidth = '100%';
+      panel.style.paddingLeft = '0px';
+      panel.style.paddingRight = '0px';
+    }
+
     function openSearch() {
+      syncSearchPanelWidth();
       overlay.classList.remove('hidden');
       document.documentElement.style.overflow = 'hidden';
       setTimeout(() => input?.focus(), 50);
@@ -436,6 +453,7 @@
     closeBtn?.addEventListener('click', closeSearch);
     backdrop?.addEventListener('click', closeSearch);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSearch(); });
+    window.addEventListener('resize', syncSearchPanelWidth);
   })();
 </script>
 
